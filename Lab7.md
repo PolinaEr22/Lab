@@ -1,5 +1,5 @@
 # Тема 7. Работа с файлами (ввод, вывод) 
-Отчет по Теме №6 выполнил(а):
+Отчет по Теме №7 выполнил(а):
 - Еремеева Полина Алексеевна
 - ИНО ЗБ ПОАС 22-1
 
@@ -19,100 +19,180 @@
 
 ## Самостоятельная работа №2
 
-## Николай знает, что кортежи являются неизменяемыми, но он очень упрямый и всегда хочет доказать, что он прав. Студент решил создать функцию, которая будет удалять первое появление определенного элемента из кортежа по значению и возвращать кортеж без него. 
+## У вас появилась потребность в ведении книги расходов, посмотрев все существующие варианты вы пришли к выводу что вас ничего не устраивает и нужно все делать самому. Напишите программу для учета расходов. Программа должна позволять вводить информацию о расходах, сохранять ее в файл и выводить существующие данные в консоль. Ввод информации происходит через консоль. Результатом выполнения задачи будет: скриншот файла с учетом расходов, листинг кода, и вывод в консоль, с демонстрацией 
 
 
 ```python
-def remove_first_occurrence_from_tuple(tpl, value):
-    if value in tpl:
-        index = tpl.index(value)
+import json
 
-        return tpl[:index] + tpl[index+1:]
-    else:
-        return tpl
-tuple1 = (1, 2, 3)
-print(remove_first_occurrence_from_tuple(tuple1, 1)) # Ожидаемый результат: (2, 3)
-tuple2 = (1, 2, 3, 1, 2, 3, 4, 5, 2, 3, 4, 2, 4, 2)
-print(remove_first_occurrence_from_tuple(tuple2, 3)) # Ожидаемый результат: (1, 2, 1, 2, 3, 4, 5, 2, 3, 4, 2, 4, 2)
-tuple3 = (2, 4, 6, 6, 4, 2)
-print(remove_first_occurrence_from_tuple(tuple3, 9)) # Ожидаемый результат: (2, 4, 6, 6, 4, 2)
+
+def add_expense(expenses):
+    category = input("Введите категорию расходов: ")
+    amount = float(input("Введите сумму расходов: "))
+    expenses.append({"category": category, "amount": amount})
+    save_expenses(expenses)
+    print("Расход успешно добавлен!")
+
+
+def save_expenses(expenses):
+    with open("expenses.json", "w") as file:
+        json.dump(expenses, file)
+
+
+def load_expenses():
+    try:
+        with open("expenses.json", "r") as file:
+            expenses = json.load(file)
+    except FileNotFoundError:
+        expenses = []
+
+    return expenses
+
+
+def show_expenses(expenses):
+    for expense in expenses:
+        print(f"Категория: {expense['category']}, Сумма: {expense['amount']}")
+
+
+def main():
+    expenses = load_expenses()
+
+    while True:
+        choice = input("Выберите действие: 1 - добавить расход, 2 - просмотреть расходы, 3 - выход: ")
+
+        if choice == "1":
+            add_expense(expenses)
+        elif choice == "2":
+            show_expenses(expenses)
+        elif choice == "3":
+            break
+        else:
+            print("Некорректный ввод, попробуйте еще раз.")
+
+
+if __name__ == "__main__":
+    main()
 ```
 ### Результат.
 
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема6/pic/2.png)
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема7/pic/2.png)
+
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема7/pic/2.1.png)
 
 ## Выводы
-Данный код содержит функцию remove_first_occurrence_from_tuple, которая удаляет первое появление заданного по значению элемента из кортежа и возвращает новый кортеж без этого элемента. В случае, когда элемент отсутствует в кортеже, возвращается исходный кортеж без изменений.
+Данный код представляет собой программу для учета расходов. В ней определены функции:
 
-Вот как функция работает:
+1. add_expense(expenses): Данная функция добавляет новую запись о расходе в список expenses. Пользователю предлагается ввести категорию расходов и сумму расходов, после чего эти данные добавляются в список расходов.
+   
+2. save_expenses(expenses): Функция сохраняет список расходов в файл "expenses.json" в формате JSON. Таким образом, данные о расходах сохраняются для последующего использования.
 
-1. Проверка наличия элемента: Сначала функция проверяет, существует ли заданный элемент value в кортеже tpl с помощью оператора in. Это позволяет избежать ошибок, связанных с попыткой удаления несуществующего элемента.
+3. load_expenses(): Данная функция загружает данные о расходах из файла "expenses.json" в случае, если файл существует, либо создает пустой список расходов.
 
-2. Нахождение индекса и создание нового кортежа: Если элемент найден, функция определяет его индекс с помощью index и создает новый кортеж, который является конкатенацией двух срезов исходного кортежа: один срез до найденного элемента (невключительно) и один после него. Это делается с помощью операции tpl[:index] + tpl[index+1:].
+4. show_expenses(expenses): Функция выводит на экран все записи о расходах, содержащиеся в списке expenses.
 
-3. Обработка случая с отсутствием элемента: Если элемент не найден в кортеже, функция возвращает исходный кортеж, поскольку в этом случае изменения не требуются.
+5. main(): Основная функция программы, в которой выполняется основной цикл работы. Пользователю предлагается выбрать действие: добавить расход, просмотреть список расходов или выйти из программы. В зависимости от выбора пользователя вызываются соответствующие функции.
 
 ## Самостоятельная работа №3
 
-## Ребята поспорили кто из них одним нажатием на numpad наберет больше повторяющихся цифр, но не понимают, как узнать победителя. Вам им нужно в этом помочь. Дана строка в виде случайной последовательности чисел от 0 до 9 (длина строки минимум 15 символов). Требуется создать словарь, который в качестве ключей будет принимать данные числа (т. е. ключи будут типом int), а в качестве значений – количество этих чисел в имеющейся последовательности. Для построения словаря создайте функцию, принимающую строку из цифр. Функция должна возвратить словарь из 3-х самых часто встречаемых чисел, также эти значения нужно вывести в порядке возрастания ключа.
+## Имеется файл input.txt с текстом на латинице. Напишите программу, которая выводит следующую статистику по тексту: количество букв латинского алфавита; число слов; число строк.
 
 
 ```python
-def find_top_three_numbers(input_string):
-    count_dict = {}
-    for num in input_string:
-        num = int(num)  
-        if num in count_dict:
-            count_dict[num] += 1
-        else:
-            count_dict[num] = 1   
-    top_three = sorted(count_dict, key=lambda x: (-count_dict[x], x))[:3]    
-    result_dict = {num: count_dict[num] for num in sorted(top_three)}
-        return result_dict
-input_string = "123213545657689090987654321"
-result = find_top_three_numbers(input_string)
-print(result)
+def count_statistics(filename):
+    with open(filename, 'r') as file:
+        text = file.read()
+        letters = sum(char.isalpha() for char in text)
+        words = len(text.split())
+        lines = text.count('\n') + 1
+
+    return letters, words, lines
+
+filename = "input.txt"
+letters, words, lines = count_statistics(filename)
+
+print(f"Input file contains:")
+print(f"{letters} letters")
+print(f"{words} words")
+print(f"{lines} lines")
 ```
 ### Результат.
 
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема6/pic/3.png)
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема7/pic/3.png)
 
 
 ## Выводы
-В данном коде определена функция find_top_three_numbers, которая выполняет следующие задачи:
-
-1. Анализирует входную строку input_string, состоящую из чисел, для определения наиболее часто встречаемых чисел в ней.
-
-2. Использует словарь count_dict для подсчета количества появлений каждого числа в строке. Ключами словаря являются числа (преобразованные из строк в целые числа), а значениями — количество их появлений.
-
-3. Сортирует ключи словаря count_dict на основе количества повторений в порядке убывания. В случае одинакового количества повторений, сортировка происходит по ключу (числу) в порядке возрастания. После сортировки извлекает три наиболее часто встречающихся числа (top_three).
-
-4. Создает новый словарь result_dict, включающий только эти три наиболее часто встречающихся числа. Ключи в этом словаре отсортированы по возрастанию. Значения ключей в result_dict соответствуют количеству появлений каждого из трех чисел в исходной строке.
+Данный код открывает файл input.txt, считывает его содержимое, а затем с помощью методов str.isalpha(), str.split() и подсчета символов новой строки подсчитывает количество букв, слов и строк в тексте соответственно. Итоговая статистика выводится на экран.
 
 ## Самостоятельная работа №4
 
-## Ваш хороший друг владеет офисом со входом по электронным картам, ему нужно чтобы вы написали программу, которая показывала в каком порядке сотрудники входили и выходили из офиса. Определение сотрудника происходит по id. Напишите функцию, которая на вход принимает кортеж и случайный элемент (id), его можно придумать самостоятельно.
+## Напишите программу, которая получает на вход предложение, выводит его в терминал, заменяя все запрещенные слова звездочками * (количество звездочек равно количеству букв в слове). Запрещенные слова, разделенные символом пробела, хранятся в текстовом файле input.txt. Все слова в этом файле записаны в нижнем регистре.
 
 ```python
-def find_sequence_between_ids(input_tuple, target_id):
-    try:
-        start_index = input_tuple.index(target_id)
-    except ValueError:
-        return ()   
-    try:
-        end_index = input_tuple.index(target_id, start_index + 1)
-        return input_tuple[start_index:end_index + 1]
-    except ValueError:
-        return input_tuple[start_index:]
-print(find_sequence_between_ids((1, 2, 3), 8))  # Ожидается: ()
-print(find_sequence_between_ids((1, 8, 3, 4, 8, 8, 9, 2), 8))  # Ожидается: (8, 3, 4, 8)
-print(find_sequence_between_ids((1, 2, 8, 5, 1, 2, 9), 8))  # Ожидается: (8, 5, 1, 2, 9)
+def load_forbidden_words(filename):
+    with open(filename, 'r') as file:
+        forbidden_words = file.read().split()
+    return forbidden_words
 
+
+def get_forbidden_words(filename):
+    with open(filename, 'r') as file:
+        forbidden_words = file.read().split()
+    return forbidden_words
+
+def censor_sentence(sentence, forbidden_words):
+    censored_sentence = sentence
+    for forbidden_word in forbidden_words:
+        lowercase_word = forbidden_word.lower()
+        censored_word = '*' * len(forbidden_word)
+        censored_sentence = censored_sentence.replace(lowercase_word, censored_word)
+    return censored_sentence
+
+filename = 'input.txt'
+forbidden_words = get_forbidden_words(filename)
+
+sentence = "Hello, world! Python IS the programming language of thE future. My EMAIL is.... PYTHON is awesome!!!!"
+censored_sentence = censor_sentence(sentence.lower(), forbidden_words)
+
+print("Исходное предложение:")
+print(sentence)
+print("Предложение с замененными запрещенными словами:")
+print(censored_sentence)
 ```
 ### Результат.
 
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема6/pic/4.png)
-
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема7/pic/4.png)
 
 ## Выводы
-В данном коде используется функция find_sequence_between_ids анализирует кортеж input_tuple и ищет в нем определенный элемент (target_id). Она возвращает новый кортеж, который начинается с первого вхождения заданного элемента и заканчивается вторым его вхождением включительно. Если элемент встречается только один раз, возвращается кортеж от вхождения элемента до конца исходного кортежа. Если элемент не найден в кортеже, возвращается пустой кортеж.
+Данный код считывает запрещенные слова из файла input.txt, заменяет все вхождения этих слов на звездочки в предложении, игнорируя регистр, и выводит скорректированное предложение на экран.
+
+## Самостоятельная работа №5
+
+## Самостоятельно придумайте и решите задачу, которая будет взаимодействовать с текстовым файлом.
+
+```python
+def count_emails(filename):
+    with open(filename, 'r') as file:
+        emails = file.readlines()
+    return len(emails), emails
+
+def most_common_domain(emails):
+    domains = {}
+    for email in emails:
+        domain = email.split('@')[-1].strip()
+        domains[domain] = domains.get(domain, 0) + 1
+    most_common_domain = max(domains, key=domains.get)
+    return most_common_domain, domains[most_common_domain]
+
+filename = "emails.txt"
+total_emails, all_emails = count_emails(filename)
+print(f"Количество email адресов в файле: {total_emails}")
+
+most_common_domain, num_users = most_common_domain(all_emails)
+print(f"Наиболее часто встречающийся домен: {most_common_domain}, количество пользователей: {num_users}")
+```
+### Результат.
+
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема7/pic/5.png)
+
+## Выводы
+Код программы считывает адреса из файла, находит общее количество адресов и наиболее часто встречающийся домен, выводит все это на экран.
