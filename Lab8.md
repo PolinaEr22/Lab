@@ -18,7 +18,7 @@
 
 ## Самостоятельная работа №1
 
-## Напишите программу, которая преобразует 1 в 31.
+## Самостоятельно создайте класс и его объект. 
 
 ```python
 class Car:
@@ -38,127 +38,222 @@ my_car.display_info()
 ```
 ### Результат.
 
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема3/pic/1.png)
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема8/pic/1.png)
 
 ## Выводы
 
-Данный код  вычисляет результат следующего выражения: (5  5  5  5  5) + 1 = 3126. Таким образом, результатом выполнения этого кода будет число 3126.
+В данном коде создается класс Car, который содержит атрибуты brand, color и year, и метод display_info, который выводит информацию о марке, цвете и годе выпуска автомобиля. 
+После определения класса Car, создается объект my_car этого класса с атрибутами "Toyota", "Синий", 2020. Затем вызывается метод display_info() объекта my_car, который выводит информацию о марке, цвете и годе выпуска этого автомобиля.
 
 ## Самостоятельная работа №2
 
-## Напишите программу, которая фразу «Hello World» выводит в обратном порядке, и каждая буква находится в одной строке консоли. 
+## Самостоятельно создайте атрибуты и методы для ранее созданного класса.
 
 ```python
-phrase = "Hello World"
-for char in reversed(phrase):
-    print(char)
+class Car:
+    def __init__(self, brand, color, year):
+        self.brand = brand
+        self.color = color
+        self.year = year
+        self.mileage = 0
+    
+    def display_info(self):
+        print(f"Марка: {self.brand}")
+        print(f"Цвет: {self.color}")
+        print(f"Год выпуска: {self.year}")
+        print(f"Пробег: {self.mileage} км")
+    
+    def drive(self, distance):
+        self.mileage += distance
+        print(f"Проехали {distance} км")
+    
+    def show_mileage(self):
+        print(f"Пробег автомобиля: {self.mileage} км")
+
+
+my_car = Car("Toyota", "Синий", 2020)
+
+my_car.display_info()
+
+my_car.drive(100)
+my_car.show_mileage()
 ```
 ### Результат.
 
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема3/pic/2.png)
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема8/pic/2.png)
 
 ## Выводы
 
-Данный код печатает символы строки "Hello World" в обратном порядке. В данном случае, он будет печатать каждый символ строки "Hello World" начиная с последнего и до первого.
+В данном коде определен класс Car, который имеет атрибуты brand, color, year и mileage, а также методы display_info, drive, и show_mileage.
+
+1. Метод display_info(self) - Этот метод выводит информацию о марке, цвете, годе выпуска и пробеге автомобиля.
+2. Метод drive(self, distance) - Этот метод увеличивает пробег автомобиля на указанное расстояние distance и выводит сообщение о пройденном расстоянии.
+3. Метод show_mileage(self) - Этот метод выводит текущий пробег автомобиля.
+
+После определения класса Car, создается объект my_car этого класса с атрибутами "Toyota", "Синий", 2020. Затем вызывается метод display_info(), который выводит информацию о марке, цвете, годе выпуска и пробеге автомобиля. Затем вызывается метод drive(100), который увеличивает пробег на 100 км, и затем вызывается метод show_mileage(), который выводит текущий пробег автомобиля.
 
 ## Самостоятельная работа №3
 
-## Напишите программу, на вход которой поступает значение из консоли, оно должно быть числовым и в диапазоне от 0 до 10 включительно (это необходимо учесть в программе). Если вводимое число не подходит по требованиям, то необходимо вывести оповещение об этом в консоль и остановить программу. 
-
+## 
 ```python
-num = int(input("Введите число от 0 до 10: "))
-if num < 0 or num > 10:
-    print("Число должно быть в диапазоне от 0 до 10. Программа завершена.")
-else:
-    if num <= 3:
-        print("Число находится в диапазоне от 0 до 3")
-    elif num <= 6:
-        print("Число находится в диапазоне от 3 до 6")
-    else:
-        print("Число находится в диапазоне от 6 до 10")
+class Car:
+    def __init__(self, brand, color, year):
+        self.brand = brand
+        self.color = color
+        self.year = year
+        self.mileage = 0
+    
+    def display_info(self):
+        print(f"Марка: {self.brand}")
+        print(f"Цвет: {self.color}")
+        print(f"Год выпуска: {self.year}")
+        print(f"Пробег: {self.mileage} км")
+    
+    def drive(self, distance):
+        self.mileage += distance
+        print(f"Проехали {distance} км")
+
+class HybridCar(Car):
+    def __init__(self, brand, color, year, fuel_tank_capacity):
+        super().__init__(brand, color, year)
+        self.fuel_tank_capacity = fuel_tank_capacity
+    
+    def drive(self, distance):
+        fuel_consumed = distance * 0.05
+        if fuel_consumed <= self.fuel_tank_capacity:
+            super().drive(distance)
+            self.fuel_tank_capacity -= fuel_consumed
+            print(f"Остаток топлива в бензобаке: {self.fuel_tank_capacity} л")
+        else:
+            print("Недостаточно топлива для поездки!")
+
+
+my_hybrid_car = HybridCar("Toyota", "Зеленый", 2022, 40)
+
+my_hybrid_car.display_info()
+
+my_hybrid_car.drive(75)
 ```
 ### Результат.
 
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема3/pic/3.png)
-
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема3/pic/3.1.png)
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема8/pic/3.png)
 
 ## Выводы
 
-Данный код  запрашивает у пользователя ввести число от 0 до 10, затем проверяет введенное значение на соответствие указанному диапазону. Если введенное число меньше 0 или больше 10, программа выводит сообщение "Число должно быть в диапазоне от 0 до 10. Программа завершена." и завершает выполнение. Если число находится в диапазоне от 0 до 3, программа выводит "Число находится в диапазоне от 0 до 3". Если число находится в диапазоне от 3 до 6, программа выводит "Число находится в диапазоне от 3 до 6". Иначе (если число находится в диапазоне от 6 до 10), программа выводит "Число находится в диапазоне от 6 до 10".
+В данном коде определены два класса: Car и HybridCar, где HybridCar является подклассом Car.
+
+Класс Car содержит атрибуты brand, color, year, mileage, метод display_info для отображения информации о автомобиле и метод drive для увеличения пробега автомобиля и вывода информации о пройденном расстоянии.
+
+Класс HybridCar наследует от класса Car и добавляет новый атрибут fuel_tank_capacity (емкость топливного бака) и переопределяет метод drive для учета расхода топлива.
+
+После создания объекта my_hybrid_car класса HybridCar с атрибутами "Toyota", "Зеленый", 2022 и емкостью бензобака 40 литров, вызывается метод display_info(), который отображает информацию о машине. Затем вызывается метод drive(75), который пытается проехать 75 км, учитывая расход топлива.
 
 ## Самостоятельная работа №4
 
-## Напишите программу на Python, которая принимает предложение (на английском) в качестве входных данных от пользователя.
+## Самостоятельно реализуйте наследование, продолжая работать с ранее созданным классом.
 
 ```python
-sentence = input("Введите предложение на английском: ")
-print("Длина предложения:", len(sentence))
-lower_sentence = sentence.lower()
+class Car:
+    def __init__(self, brand, color, year):
+        self._brand = brand
+        self._color = color
+        self._year = year
+        self._mileage = 0
+    
+    def display_info(self):
+        print(f"Марка: {self.get_brand()}")
+        print(f"Цвет: {self.get_color()}")
+        print(f"Год выпуска: {self.get_year()}")
+        print(f"Пробег: {self.get_mileage()} км")
+    
+    def get_brand(self):
+        return self._brand
+    
+    def get_color(self):
+        return self._color
+    
+    def get_year(self):
+        return self._year
+    
+    def get_mileage(self):
+        return self._mileage
+    
+    def set_color(self, new_color):
+        print(f"Изменяем цвет с {self._color} на {new_color}")
+        self._color = new_color
+    
+    def add_mileage(self, distance):
+        print(f"Проехали {distance} км")
+        self._mileage += distance
 
-print("Предложение в нижнем регистре:", lower_sentence)
-vowels = ['a', 'e', 'i', 'o', 'u']
-count_vowels = sum([1 for char in lower_sentence if char in vowels])
 
-print("Количество гласных букв в предложении:", count_vowels)
-new_sentence = lower_sentence.replace("ugly", "beauty")
-print("Предложение с заменой:", new_sentence)
+my_car = Car("Toyota", "Синий", 2020)
 
-if lower_sentence.startswith("the") and lower_sentence.endswith("end"):
-    print("Предложение начинается с 'The' и заканчивается на 'end'")
-else:
-    print("Предложение не соответствует условиям")
+my_car.display_info()
+
+my_car.set_color("Красный")
+
+my_car.add_mileage(150)
+my_car.display_info()
 ```
 ### Результат.
 
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема3/pic/4.png)
-
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема3/pic/4.1.png)
-
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема3/pic/4.2.png)
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема8/pic/4.png)
 
 ## Выводы
 
-Данный код запрашивает у пользователя ввести предложение на английском языке, затем выполняет следующие действия:
+В данном коде определен класс Car, который имеет атрибуты _brand, _color, _year, _mileage, а также методы display_info, get_brand, get_color, get_year, get_mileage, set_color, add_mileage.
 
-1. Выводит длину предложения.
-2. Преобразует предложение в нижний регистр и выводит его.
-3. Подсчитывает количество гласных букв в предложении.
-4. Заменяет слово "ugly" на "beauty" в предложении и выводит результат.
-5. Проверяет, начинается ли предложение с "The" и заканчивается ли на "end", и выводит соответствующее сообщение.
+- Метод display_info(self) выводит информацию о марке, цвете, годе выпуска и пробеге автомобиля, используя методы для доступа к атрибутам.
+- Методы get_brand, get_color, get_year, get_mileage возвращают соответствующие значения атрибутов.
+- Метод set_color(self, new_color) изменяет цвет автомобиля, выводит сообщение об изменении цвета и обновляет значение атрибута _color.
+- Метод add_mileage(self, distance) увеличивает пробег автомобиля на указанное расстояние и выводит сообщение о пройденном расстоянии.
 
+Создается объект my_car класса Car с атрибутами "Toyota", "Синий", 2020. Затем вызывается метод display_info(), который выводит информацию о марке, цвете, годе выпуска и пробеге автомобиля. Затем вызывается метод set_color("Красный"), который изменяет цвет автомобиля на "Красный" и выводит сообщение об изменении цвета. После этого вызывается метод add_mileage(150), который увеличивает пробег на 150 км. Наконец, вызывается метод display_info(), чтобы отобразить обновленную информацию об автомобиле.
 
 ## Самостоятельная работа №5
 
-## Составьте программу, результатом которой будет данный вывод в консоль.
+## Самостоятельно реализуйте полиморфизм.
 
 ```python
-counter = 0
-memory = 'world'
-string = 'hello'
-values = [0,2,4,6,8,10]
+class Vehicle:
+    def __init__(self, brand, color):
+        self.brand = brand
+        self.color = color
 
-while counter != 10:
-    if counter in values:
-        print(string)
-    else:
-        string = string + ' ' + memory
-        print(string)
-    counter += 1
-    if counter > 7:
-        break
+    def drive(self):
+        pass
+
+class Car(Vehicle):
+    def drive(self):
+        print("Автомобиль движется по дороге")
+
+class Bus(Vehicle):
+    def drive(self):
+        print("Автобус перевозит пассажиров")
+
+class Bicycle(Vehicle):
+    def drive(self):
+        print("Велосипед катится по дороге")
+
+vehicles = [Car("Toyota", "Синий"), Bus("Volvo", "Белый"), Bicycle("Школьный", "Красный")]
+
+for vehicle in vehicles:
+    print(f"{vehicle.brand} {vehicle.color}:")
+    vehicle.drive()
+    print()
 ```
 ### Результат.
 
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема3/pic/5.png)
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема8/pic/5.png)
 
 ## Выводы
 
-создает цикл с использованием цикла while, который выполняется до тех пор, пока переменная counter не будет равна 10. Внутри цикла выполняется следующее:
+В данном коде определены классы Vehicle, Car, Bus, Bicycle, все унаследованы от класса Vehicle и переопределяют метод drive().
 
-1. Проверяется, содержится ли значение counter в списке values. Если содержится, то на экран выводится строка "hello".
-2. В противном случае, строка string получает значение, которое представляет собой конкатенацию строк 'hello' и 'world' с пробелом между ними. Затем эта строка выводится на экран.
-3. Затем переменная counter увеличивается на единицу.
-4. Если counter превышает значение 7, то программа завершается с помощью оператора `break`.
+- Vehicle содержит атрибуты brand и color, и определяет метод drive(), который пока не выполняет никаких действий (просто имеет оператор pass).
+- Car, Bus и Bicycle - это подклассы класса Vehicle, они переопределяют метод drive() и выводят соответствующие сообщения о движении для автомобиля, автобуса и велосипеда соответственно.
 
-Таким образом, этот код будет выводить строку "hello" каждый раз, когда counter равен одному из значений в списке values, иначе будут печататься строки "hello world", "hello world world" и так далее до значения counter равного 7. После этого выполнение кода завершится.
+Затем создается список vehicles, который содержит объекты разных типов: Car, Bus, Bicycle, каждый с определенным брендом и цветом. 
+
+Далее, в цикле проходим по каждому элементу vehicle в списке vehicles, выводим информацию о бренде и цвете транспортного средства, вызываем метод drive() соответствующего класса для каждого элемента, чтобы вывести сообщение о движении.
