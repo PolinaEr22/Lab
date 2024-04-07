@@ -31,15 +31,12 @@ class Car:
         print(f"Проехали {distance} км")
         self._mileage += distance
 
-# Создаем объект класса Car
+
 my_car = Car("Toyota", "Синий", 2020)
 
-# Выводим информацию об автомобиле
 my_car.display_info()
 
-# Изменяем цвет автомобиля
 my_car.set_color("Красный")
 
-# Осуществляем поездку и увеличиваем пробег
 my_car.add_mileage(150)
 my_car.display_info()
