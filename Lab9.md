@@ -144,9 +144,9 @@ gardener.work()
 gardener.work()
 gardener.harvest()
 ```
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема8/pic/1.png)
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема9/pic/1.png)
 
-![Меню](https://github.com/PolinaEr22/Lab/blob/Тема8/pic/2.png)
+![Меню](https://github.com/PolinaEr22/Lab/blob/Тема9/pic/2.png)
 
 #Вывод
 
